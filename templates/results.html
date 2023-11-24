@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<head>
+    <h2>Cheapest {{ query }} near {{ zipcode }}</h2>
+    <style>
+        .product-image {
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgb(0, 0, 0);
+            box-sizing: border-box;
+            margin-top: 10px;
+            margin-bottom: 8px;
+        }
+        .product-description {
+            white-space: normal;
+            font-size: small;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            text-align: center;
+            vertical-align: top;
+        }
+        .header-cell {
+            text-align: center; /* Center the text within header cells */
+            font-weight: lighter;
+            vertical-align: top; /* Align header cells at the top */
+        }
+        .product-cell {
+            text-align: center;
+            vertical-align: top; /* Align product cells at the top */
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <!-- Add an extra empty cell for alignment in the first row -->
+            <td></td>
+            {% for store_name, items in results.items() %}
+                <th class="header-cell">{{ store_name | safe }}<br></th> <!-- Display store names as table headers -->
+            {% endfor %}
+        </tr>
+        <!-- Add some empty rows for vertical spacing -->
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+        {% for item_key in results[results.keys()|first].keys() %}
+            <tr>
+                <td></td> <!-- An empty cell for alignment -->
+                {% for store_name, items in results.items() %}
+                    <td class="product-cell">
+                        {{ (items[item_key].name[:30] + '...') if items[item_key].name and items[item_key].name|length > 10 else items[item_key].name }}<br>
+
+                        <img src="{{ items[item_key].picture }}" alt="{{ items[item_key].name }}" class="product-image" onload="imageLoaded(this)" onerror="replaceWithPlaceholder(this)"><br>
+                        <strong>${{ items[item_key].price }}</strong>
+                        <td></td>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        <!-- Add empty rows for further spacing -->
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+        <tr><td colspan="{{ results|length + 1 }}"></td></tr>
+    </table>
+
+    <script>
+        function imageLoaded(img) {
+            // Image loaded successfully; do nothing
+        }
+
+        function replaceWithPlaceholder(img) {
+            img.src = '{{ url_for('static', filename='missing.jpg') }}';
+        }
+    </script>
+</body>
+{% endblock %}

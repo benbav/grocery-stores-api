@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <br>
+
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <form action="/" method="post" id="searchForm" onsubmit="return validateForm()">
+            <div style="margin-right: 20px">
+                
+                <label for="query" style="font-weight: 400;">Grocery Item:</label>
+                <input type="text" id="query" name="query" required placeholder="fig bars" value="fig bars" style="background-color: rgb(168, 168, 168); border: none; border-radius: 10px; font-size: 20px; width: 200px; text-align: center; color: rgb(20, 20, 20); font-family: 'Montserrat', monospace;">
+                
+                <br style="line-height: 4em;">
+
+                <label for="zipcode" style="font-weight: 400;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zip Code:</label> <!-- Add multiple non-breaking spaces -->
+
+                <input type="text" id="zipcode" name="zipcode" required placeholder="60613" value="60613" style="background-color: rgb(168, 168, 168); border: none; border-radius: 10px; font-size: 20px; width: 200px; text-align: center; color: rgb(20, 20, 20); font-family: 'Montserrat', monospace;">
+                
+
+                <br><br>
+                
+                <div>
+                    <label style="font-weight: 400;">Select Up to 4 Stores:</label>
+                    
+                    <br style="line-height: 1em;">
+                    {% for store in grocery_stores.keys() %}
+                    
+                        <input type="checkbox" id="store_{{ store }}" name="selected_stores" value="{{ store }}">
+                        <label for="store_{{ store }}">{{ store }}</label>
+                        <br>
+                    {% endfor %}
+                </div>
+                <br>
+
+                <!-- Custom Search Button -->
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <button type="submit" style="background-color: black; color: white; border-radius: 8px; padding: 10px 50px; border: none; cursor: pointer; font-size: 20px;">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <br>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (checkboxes.length === 0) {
+                alert('Please select at least one store (moron)');
+                return false;
+            }
+            if (checkboxes.length > 4) {
+                alert('You can only select up to 4 stores');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
+{% endblock %}
