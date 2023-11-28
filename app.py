@@ -85,13 +85,9 @@ def results():
 x = 3
 
 # draw a box around the store with the lowest price and item - yeah ill do that but just fucking format them first
-# check box to limit up to 4 grocery stores DONE
 # maybe add aldi api (later)
-# then make it look super nice add noahs artwork and deploy
-# noah wants to make a mock up of the landing page and the results page and then impliment DONE
 # get it lined up on the grid FORMATTING
-# get target api fixed DONE
-# get the missing images fixed DONE
+# include blank images for anything under the min number of items
 
 if __name__ == "__main__":
     app.run()
