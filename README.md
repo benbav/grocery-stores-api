@@ -14,7 +14,7 @@ This is scewed towards Northside Chicago grocery stores but I am planning on exp
 
 ## Screenshots
 
-![Landing Page](static/landing.png)
+![Landing Page](static/land.png)
 
 ![Results](static/results.png)
 
